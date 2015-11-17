@@ -1,0 +1,176 @@
+*{
+  font-family: 'Titillium Web', sans-serif;
+}
+.landingContent{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.landingBg{
+  left:50%;
+  transform: translateX(-50%);
+  position:absolute;
+  z-index: -1;
+}
+.landingBtn{
+  position:absolute;
+  top: 70%;
+  width: 40%;
+  max-width: 300px;
+  border: none;
+  letter-spacing: 12px;
+  font-size: 18px;
+  transition: .8s;
+}
+@media(max-width: 767px){
+  .landingBtn{
+    font-size: 12px;
+    letter-spacing: 4px;
+  }
+  .formHeader{
+    font-size: 15px;
+  }
+}
+.startBtn{
+  left: 50%;
+  transform: translateX(-110%);
+  padding: 20px;
+  background-color: #444444;
+  color: #c9c9c9;
+}
+.registerBtn{
+  left: 50%;
+  border: 2px solid #f9f9f9;
+  transform: translateX(12%);
+  padding: 18px;
+  background-color: transparent;
+  color: #f9f9f9;
+  box-sizing: border-box;
+}
+.startBtn:hover{
+  background-color: black;
+  color: white;
+}
+.registerBtn:hover{
+  background-color: white;
+  color: black;
+}
+.landingForm::before,
+.landingForm::after{
+  position: absolute;
+  height: 100%;
+  content: "";
+  top: 0;
+}
+.landingForm::before{
+  left: 0;
+  transform: translateX(-99.4%);
+  border-right: 70px solid black;
+  border-bottom: 70px solid transparent;
+}
+.landingForm::after{
+  left: 100%;
+  transform: translateX(-1%);
+  border-left: 70px solid black;
+  border-top: 70px solid transparent;
+}
+.landingForm{
+  position:absolute;
+  background-color: black;
+  color: #c9c9c9;
+  padding: 20px 0 30px 0;
+  left: 50%;
+  top: 45%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.closeForm{
+  float:right;
+  cursor:pointer;
+  transition: .3s;
+  transform: scale(1.5, 1);
+  margin-top:-20px;
+}
+.closeForm:hover{
+  text-shadow: 0 0 0.2em #71abff, 0 0 0.2em #71abff, 0 0 0.2em #71abff;
+}
+.userInput{
+  background-color:transparent;
+  width:50vw;
+  margin: 10px 0;
+  border: none;
+  border-radius: 0;
+  color: white;
+  letter-spacing: 6px;
+  padding-left: 36px;
+  z-index: 100;
+}
+.userInput:focus{
+  box-shadow: 0px 0px 20px #71abff;
+}
+.customPlaceholder{
+  position:absolute;
+  letter-spacing: 6px;
+  margin-top:-24px;
+  color:white;
+  text-shadow: 0 0 0.2em #71abff, 0 0 0.2em #71abff, 0 0 0.2em #71abff;
+  font-size: 50px;
+}
+.userInputLabels{
+  padding-left: 1px;
+  letter-spacing: 6px;
+}
+
+.userInput:focus::-webkit-input-placeholder { color:white; }
+.userInput:focus:-moz-placeholder { color:white; } /* Firefox 18- */
+.userInput:focus::-moz-placeholder { color:white; } /* Firefox 19+ */
+.userInput:focus:-ms-input-placeholder { color:white; } /* oldIE ;) */
+.formHeader{
+  letter-spacing: 12px;
+  margin-bottom: 30px;
+}
+
+.mask,
+.maskLabel{
+  position:absolute;
+  height:24px;
+  width:0;
+  background:black;
+  right:0;
+}
+.mask{
+  height: 36px;
+}
+.maskLabel{
+  transform:translateY(-130%);
+}
+@keyframes removeMask{
+  0% {width:99%;}
+  5% {width:97%;}
+  10% {width:95%;}
+  15% {width:93.4%;}
+  20% {width:91.4%;}
+  25% {width:89%;}
+  30% {width:87.4%;}
+  35% {width:85%;}
+  40% {width:83%;}
+  45% {width:81%;}
+  50% {width:78%;}
+  55% {width:75%;}
+  60% {width:73%;}
+  65% {width:71%;}
+  70% {width:68.4%;}
+  75% {width:66%;}
+  80% {width:63%;}
+  85% {width:61%;}
+  90% {width:58.4%;}
+  95% {width:56%;}
+  99% {width:54%;}
+}
+.removeMask{
+  animation-name: removeMask;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
