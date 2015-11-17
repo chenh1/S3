@@ -1,8 +1,8 @@
 # S3
 
-Work in progress
+Coming Soon
 
-## Live Preview <a href="http://nestegg.howard-chen.com/">Here</a>
+## Live Preview <a href="http://chenh1.github.io/S3/">Here</a>
 
 
 
