@@ -34,16 +34,52 @@
 /** Map */
 
 var Interface = function(){
+    this.starAnimate = function(starAmt, maxSize, canvas){
+        for(var i = 0; i < starAmt; i++){
+            /** Randomly generate a number between 1 and 100 (used for left position) */
+            var positionX = Math.floor((Math.random() * 100) + 1);
+            /** Randomly generate a number between 1 and 100 (used for top position) */
+            var positionY = Math.floor((Math.random() * 100) + 1);
+
+            /** Randomly generate a number between 1 and 8 (used for pixel size)*/
+            var size = Math.floor((Math.random() * maxSize) + 1);
+
+            var star = $("<div>", {
+                class: "starDecor",
+                style: "top: " + positionY + "%" + "; left: " + positionX + "%" + "; width: " + size + "px; height: " + size + "px;"
+            });
+
+            if(canvas == "starCanvas") {
+                if (size > 5) {
+                    $(".large").append(star);
+                } else if (size > 3) {
+                    $(".mid").append(star);
+                } else {
+                    $(".small").append(star);
+                }
+            } else if (canvas == "mapCanvas") {
+                $(".mapCanvas").append(star).addClass("mapCanvasZoom");
+            }
+        }
+    };
+
     this.initialize = function(){
+        var interfaceObj = this;
         $.ajax({
             url: "pages/landing.php",
             dataType: 'html',
             success: function(data){
 
+                /** Append the page to .mainContent */
                 $(".mainContent").append(data);
 
+                /** Randomly generate 50 stars */
+                interfaceObj.starAnimate(50, 8, "starCanvas");
+
+                /** Hide forms upon load */
                 $(".landingForm, .loginForm, .registerForm").hide();
 
+                /** Click handler to open both forms */
                 $(".landingBtn").click(function(e){
                     e.stopPropagation();
                     $(".customPlaceholder").hide();
@@ -56,16 +92,67 @@ var Interface = function(){
                     }, 300);
                 });
 
+                /** Stop propagation on the forms; closing form by clicking outside of it is desired */
                 $(".landingForm").click(function(e){
                     e.stopPropagation();
                 });
 
+                /** Close forms if window is clicked (barring form itself) */
                 $(window).click(function(){
                     $(".landingForm").fadeOut();
                 });
 
+                /** Close form if close button is clicked */
                 $(".closeForm").click(function(){
                     $(".landingForm").fadeOut();
+                });
+
+                /** Animate sequence */
+                $(".submitBtn").click(function(e){
+
+                    e.preventDefault();
+
+                    $(".landingBtn").off("click").animate({
+                        opacity: 0
+                    }, 500);
+
+                    $(".landingForm").fadeOut();
+
+                    $(".landingBg").animate({
+                        opacity: 0
+                    }, 2000);
+
+                    setTimeout(function(){
+
+                        setTimeout(function(){
+                            $(".landingContent").remove();
+                        }, 1500);
+
+                        $(".transition1").addClass("transition1Animation");
+                        $(".transition2").addClass("transition2Animation");
+                        $(".starDecor").addClass("starAnimate");
+                        $(".starCanvas").addClass("starCanvasZoom").animate({
+                            opacity: 0
+                        }, 200);
+
+                        $(".transition1, .transition2").animate({
+                            opacity:0
+                        }, 1000);
+
+                        setTimeout(function(){
+                            $(".mapBg").animate({
+                                opacity:.3
+                            }, 1000);
+
+                            interfaceObj.starAnimate(50, 5, "mapCanvas");
+                        }, 1000);
+
+                        setTimeout(function(){
+                            $(".starCanvas").remove();
+                            $(".transition1, .transition2").remove();
+                        }, 4000);
+
+                    }, 1500);
                 });
             },
             error: function(){
