@@ -160,6 +160,36 @@ var Interface = function(){
             }
         });
     };
+
+    this.loadLevel = function(){
+        $.ajax({
+            url: 'pages/level.php',
+            dataType: 'html',
+            success: function(data){
+                console.log(data);
+                $(".mainContent").append(data);
+
+                /**Size responds based on user input (use this for other inputs as well) */
+                $(".planetSize").keyup(function(){
+                    var size = $(this).val();
+                    $(".viewPlanet").css({
+                        width: size,
+                        height: size
+                    });
+                });
+
+                $(".createPlanet").click(function(){
+                    var newPlanet = $(".viewPlanetWindow").html();
+                    $(newPlanet).addClass("planetCursor").removeClass(".viewPlanet");
+                    $("body").append(newPlanet);
+                });
+
+            },
+            error: function(){
+                console.log("Failed");
+            }
+        })
+    }
 };
 
 
@@ -167,6 +197,8 @@ $(document).ready(function(){
 
     var playerInterface = new Interface();
 
-    playerInterface.initialize();
+    playerInterface.loadLevel();
+
+    //playerInterface.initialize();
 
 });
