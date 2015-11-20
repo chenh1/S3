@@ -1,5 +1,7 @@
 <div class = "levelMap">
     <div class = "sun"></div>
+    <div class = "orbitTrack"></div>
+    <div class = "armRotate"></div>
 
     <button class = "openPlanetCreation">CREATE PLANET</button>
 

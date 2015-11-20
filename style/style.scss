@@ -315,3 +315,35 @@ body{
   top: 50%;
   transform: translate3d(-50%, -50%, 0);
 }
+.orbitTrack{
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border: 1px solid white;
+  width: 200px;
+  height: 200px;
+}
+
+@keyframes axisRotate{
+  0%  {transform: rotate3d(0, 0, 1, 0deg); }
+  25% {transform: rotate3d(0, 0, 1, 90deg); }
+  50% {transform: rotate3d(0, 0, 1, 180deg);}
+  75% {transform: rotate3d(0, 0, 1, 270deg); }
+  100%{transform: rotate3d(0, 0, 1, 360deg);}
+}
+
+.armRotate{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  height: 1px;
+  border: 1px solid white;
+  transform-origin: 0 50% 0;
+}
+
+.axisRotate{
+  animation: axisRotate 1s infinite;
+  animation-timing-function: linear;
+}

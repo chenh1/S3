@@ -179,9 +179,45 @@ var Interface = function(){
                 });
 
                 $(".createPlanet").click(function(){
-                    var newPlanet = $(".viewPlanetWindow").html();
-                    $(newPlanet).addClass("planetCursor").removeClass(".viewPlanet");
-                    $("body").append(newPlanet);
+                    var planetCursor = $("<div>", {
+                        class: "planetCursor",
+                        width: $(".viewPlanet").width(),
+                        height: $(".viewPlanet").height()
+                    });
+                    $(".levelMap").append(planetCursor);
+
+                    var $window = $(window);
+                    var sun = $(".sun");
+
+                    $window.mousemove(function(e){
+                        planetCursor.offset({
+                            left: e.pageX - (planetCursor.width()/2),
+                            top: e.pageY - (planetCursor.height()/2)
+                        });
+
+                        /** Pythagorean Theorem to determine distance of cursor to sun */
+                        var distance = Math.sqrt(
+                            Math.pow(((sun.offset().left+sun.width()/2) - e.pageX), 2) +
+                            Math.pow(((sun.offset().top+sun.height()/2) - e.pageY), 2));
+
+                        /** Multiply distance of cursor to sun by 2 to get the width of the circle div */
+                        $(".orbitTrack").width(distance*2).height(distance*2);
+
+                        var angle = (Math.atan2(e.pageX- (sun.offset().left+sun.width()/2), - (e.pageY- (sun.offset().top+sun.height()/2)) )*(180/Math.PI))-90;
+
+                        $(".armRotate").width(distance).css({
+                            transform: "rotate3d(0, 0, 1, " + angle + "deg)"
+                        });
+
+                        $(".levelMap").click(function(){
+                            $(this).append(planetCursor).off("click"); /** Remove append planetCursor later */
+
+                            /** Append a snapshot copy of rotating arm here and add axisRotate class to it */
+                            /** Append planet to the end of the arm */
+
+                            $window.off("mousemove");
+                        });
+                    });
                 });
 
             },
