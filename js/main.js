@@ -162,6 +162,7 @@ var Interface = function(){
     };
 
     this.loadLevel = function(){
+        var interfaceObj = this;
         $.ajax({
             url: 'pages/level.php',
             dataType: 'html',
@@ -178,16 +179,20 @@ var Interface = function(){
                     });
                 });
 
-                $(".createPlanet").click(function(){
+                $(".createPlanet").click(function(e){
+                    e.stopPropagation();
+
                     var planetCursor = $("<div>", {
-                        class: "planetCursor",
+                        class: "planetCursor planetNo" + interfaceObj.planetsMade,
                         width: $(".viewPlanet").width(),
-                        height: $(".viewPlanet").height()
+                        height: $(".viewPlanet").height(),
+                        'planetid': interfaceObj.planetsMade
                     });
                     $(".levelMap").append(planetCursor);
 
                     var $window = $(window);
                     var sun = $(".sun");
+                    var distance;
 
                     $window.mousemove(function(e){
                         planetCursor.offset({
@@ -196,28 +201,67 @@ var Interface = function(){
                         });
 
                         /** Pythagorean Theorem to determine distance of cursor to sun */
-                        var distance = Math.sqrt(
+                        distance = Math.sqrt(
                             Math.pow(((sun.offset().left+sun.width()/2) - e.pageX), 2) +
                             Math.pow(((sun.offset().top+sun.height()/2) - e.pageY), 2));
 
                         /** Multiply distance of cursor to sun by 2 to get the width of the circle div */
                         $(".orbitTrack").width(distance*2).height(distance*2);
 
+                        /** Determine the angle of the mouse pointer from the center of the screen where sun is located*/
                         var angle = (Math.atan2(e.pageX- (sun.offset().left+sun.width()/2), - (e.pageY- (sun.offset().top+sun.height()/2)) )*(180/Math.PI))-90;
 
+                        /** Rotate the arm to track the cursor */
                         $(".armRotate").width(distance).css({
                             transform: "rotate3d(0, 0, 1, " + angle + "deg)"
                         });
 
-                        $(".levelMap").click(function(){
-                            $(this).append(planetCursor).off("click"); /** Remove append planetCursor later */
+                    });
 
-                            /** Append a snapshot copy of rotating arm here and add axisRotate class to it */
-                            /** Append planet to the end of the arm */
+                    setTimeout(function(){
+
+                        /** Turn off pointer events since .levelInterface sits on top of .levelMap */
+                        $(".levelInterface").addClass("disableInterfaceClick");
+
+                        $(".levelMap").click(function() {
+
+                            /** Create a restricted zone to prohibit future placement */
+                            var restrictedZoneStart = distance - planetCursor.width()/2;
+                            var restrictedZoneEnd = distance + planetCursor.width()/2;
+                            var restrictedZone = [restrictedZoneStart, restrictedZoneEnd];
+                            interfaceObj.restrictedZones[interfaceObj.restrictedZones.length] = restrictedZone;
+
+                            /** Append a snapshot copy of rotating arm and orbitTrack */
+                            var newRadius = $(".armRotate").clone();
+                            newRadius.addClass("newRadius").removeClass("armRotate").attr('planetid', interfaceObj.planetsMade);
+
+                            var newOrbitTrack = $(".orbitTrack").clone();
+                            newOrbitTrack.addClass("newOrbitTrack").removeClass("orbitTrack").attr('planetid', interfaceObj.planetsMade);
+
+                            $(this).off("click").append(newRadius, newOrbitTrack);
+
+                            /** Time it takes for one completed orbit around the sun */
+                            var timeFullRevolution = 5;
+
+                            /** Append planet to the end of the arm & begin rotation */
+                            newRadius.append(planetCursor).addClass("axisRotate").css({
+                                animation: "axisRotate " + timeFullRevolution + "s infinite",
+                                'animation-timing-function': 'linear'
+                            });
+
+                            /** Lock planet onto orbit track (override inline styles) */
+                            planetCursor.addClass("lockTrack");
 
                             $window.off("mousemove");
+
+                            interfaceObj.planetsMade++;
+
+                            /** Turn on pointer events again to enable interaction with interface */
+                            $(".levelInterface").removeClass("disableInterfaceClick");
                         });
-                    });
+                    }, 100);
+
+
                 });
 
             },
@@ -225,7 +269,11 @@ var Interface = function(){
                 console.log("Failed");
             }
         })
-    }
+    };
+
+    this.planetsMade = 0;
+
+    this.restrictedZones = [];
 };
 
 

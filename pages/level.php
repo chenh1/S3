@@ -1,8 +1,4 @@
-<div class = "levelMap">
-    <div class = "sun"></div>
-    <div class = "orbitTrack"></div>
-    <div class = "armRotate"></div>
-
+<div class = "levelInterface">
     <button class = "openPlanetCreation">CREATE PLANET</button>
 
     <div class = "createPlanetInterface">
@@ -17,5 +13,10 @@
             <div class = "viewPlanet"></div>
         </div>
     </div>
+</div>
 
+<div class = "levelMap">
+    <div class = "sun"></div>
+    <div class = "orbitTrack"></div>
+    <div class = "armRotate"></div>
 </div>

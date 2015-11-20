@@ -4,6 +4,7 @@
 body {
   background: black; }
 
+.mainContent,
 .landingContent,
 .mapContent,
 .starCanvas,
@@ -300,11 +301,17 @@ body {
   animation-fill-mode: forwards; }
 
 /**LEVEL DESIGN**/
-.levelMap {
+.levelMap,
+.levelInterface {
   position: absolute;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden; }
+  height: 100vh; }
+
+.levelInterface {
+  z-index: 100; }
+
+.disableInterfaceClick {
+  pointer-events: none; }
 
 .sun {
   position: absolute;
@@ -331,15 +338,22 @@ body {
   top: 50%;
   transform: translate3d(-50%, -50%, 0); }
 
-.orbitTrack {
+.planetCursor {
+  z-index: -1000; }
+
+.lockTrack {
+  left: 100% !important;
+  top: 50% !important; }
+
+.orbitTrack,
+.newOrbitTrack {
   position: absolute;
   border-radius: 50%;
   left: 50%;
   top: 50%;
   transform: translate3d(-50%, -50%, 0);
   border: 1px solid white;
-  width: 200px;
-  height: 200px; }
+  z-index: -1200; }
 
 @keyframes axisRotate {
   0% {
@@ -352,16 +366,14 @@ body {
     transform: rotate3d(0, 0, 1, 270deg); }
   100% {
     transform: rotate3d(0, 0, 1, 360deg); } }
-.armRotate {
+.armRotate,
+.newRadius {
   position: absolute;
   top: 50%;
   left: 50%;
   height: 1px;
   border: 1px solid white;
-  transform-origin: 0 50% 0; }
-
-.axisRotate {
-  animation: axisRotate 1s infinite;
-  animation-timing-function: linear; }
+  transform-origin: 0 50% 0;
+  z-index: -1200; }
 
 /*# sourceMappingURL=style.css.map */
