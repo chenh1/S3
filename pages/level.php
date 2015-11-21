@@ -15,8 +15,13 @@
     </div>
 </div>
 
+<div class = "miniMap">
+
+</div>
+
 <div class = "levelMap">
     <div class = "sun"></div>
     <div class = "orbitTrack"></div>
     <div class = "armRotate"></div>
 </div>
+

@@ -290,6 +290,7 @@ body{
   position: absolute;
   width: 100vw;
   height: 100vh;
+  transition-duration: .5s;
 }
 .levelInterface{
   z-index:100;
@@ -324,10 +325,8 @@ body{
 }
 .planetCursor{
   z-index: -1000;
-}
-.lockTrack{
-  left: 100% !important;
-  top: 50% !important;
+  left: 100%;
+  top: 50%;
 }
 .orbitTrack,
 .newOrbitTrack{
