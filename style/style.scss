@@ -1,17 +1,124 @@
 *{
   font-family: 'Titillium Web', sans-serif;
 }
-.landingContent{
-  position: relative;
+body{
+  background: black;
+}
+.landingContent,
+.mapContent,
+.starCanvas,
+.mapCanvas{
+  position: absolute;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
+.starCanvas{
+  transform: scale3d(1, 1, 1) translateX(0);
+  transition-timing-function: ease-in;
+}
+.mapCanvas{
+  opacity: 0;
+  transform: scale3d(.3, .3, .3) translate3d(30%, 30%, 0);
+  transition-duration: 1.5s;
+  transition-timing-function: ease-out;
+}
+.mapCanvasZoom{
+  opacity: 1;
+  transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+}
+.large{
+  transition-duration: 1.9s;
+}
+.mid{
+  transition-duration: 2.8s;
+}
+.small{
+  transition-duration: 3.8s;
+}
+.starCanvasZoom{
+  transform: scale3d(4, 4, 4) translate3d(-100%, 0, 0);
+}
+.mapContent{
+  z-index: -100;
+}
 .landingBg{
   left:50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   position:absolute;
   z-index: -1;
+  opacity: 1;
+}
+.transition1,
+.transition2,
+.mapBg{
+  top: 0;
+  left: 0;
+  opacity: .6;
+  position:absolute;
+}
+.mapBg{
+  opacity: 0;
+}
+.transition1{
+  left:50%;
+  transform: translate3d(-53%, 0, 0) scale3d(1, 1, 1);
+  transition: 5s;
+}
+.transition1Animation{
+  transform: translate3d(-56%, 3%, 0) scale3d(1.4, 1.4, 1.4);
+}
+.transition2{
+  width: 200%;
+  transition: 5s;
+}
+.transition2Animation{
+  transform: scale3d(1.6, 1.6, 1.6) translate3d(0, 0, 0);
+}
+
+@-webkit-keyframes starGlow {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 70px #fff, 0 0 80px #fff, 0 0 100px #fff, 0 0 150px #fff;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fff, 0 0 35px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 75px #fff;
+  }
+}
+
+@-webkit-keyframes starGlowAnimate {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 75px #228DFF;
+  }
+}
+
+.starDecor{
+  -webkit-animation: starGlow 1.5s ease-in-out infinite alternate;
+  -moz-animation: starGlow 1.5s ease-in-out infinite alternate;
+  animation: starGlow 1.5s ease-in-out infinite alternate;
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  z-index: -1;
+}
+.starAnimate{
+  -webkit-animation: starGlowAnimate 1.5s ease-in-out infinite alternate;
+  -moz-animation: starGlowAnimate 1.5s ease-in-out infinite alternate;
+  animation: starGlowAnimate 1.5s ease-in-out infinite alternate;
+}
+
+.submitBtn{
+  background-color: #444444;
+  border: none;
+  letter-spacing: 9px;
+  font-size: 16px;
+  color: #c9c9c9;
+  padding: 16px;
+  float: right;
+  margin-top: 20px;
+  transition: .5s;
 }
 .landingBtn{
   position:absolute;
@@ -21,7 +128,7 @@
   border: none;
   letter-spacing: 12px;
   font-size: 18px;
-  transition: .8s;
+  transition: .5s;
 }
 @media(max-width: 767px){
   .landingBtn{
@@ -52,7 +159,8 @@
   background-color: black;
   color: white;
 }
-.registerBtn:hover{
+.registerBtn:hover,
+.submitBtn:hover{
   background-color: white;
   color: black;
 }
