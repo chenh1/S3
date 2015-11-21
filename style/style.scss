@@ -4,6 +4,7 @@
 body{
   background: black;
 }
+.mainContent,
 .landingContent,
 .mapContent,
 .starCanvas,
@@ -281,4 +282,78 @@ body{
   animation-iteration-count: 1;
   animation-direction: normal;
   animation-fill-mode: forwards;
+}
+
+/**LEVEL DESIGN**/
+.levelMap,
+.levelInterface{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  transition-duration: .5s;
+}
+.levelInterface{
+  z-index:100;
+}
+.disableInterfaceClick{
+  pointer-events:none;
+}
+.sun{
+  position:absolute;
+  background-color: yellow;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.viewPlanetWindow{
+  position:relative;
+  background-color: #3f3f3f;
+  height: 200px;
+  width: 200px;
+}
+.viewPlanet,
+.planetCursor{
+  position:absolute;
+  background-color:green;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.planetCursor{
+  z-index: -1000;
+  left: 100%;
+  top: 50%;
+}
+.orbitTrack,
+.newOrbitTrack{
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border: 1px solid white;
+  z-index: -1200;
+}
+
+@keyframes axisRotate{
+  0%  {transform: rotate3d(0, 0, 1, 0deg); }
+  25% {transform: rotate3d(0, 0, 1, 90deg); }
+  50% {transform: rotate3d(0, 0, 1, 180deg);}
+  75% {transform: rotate3d(0, 0, 1, 270deg); }
+  100%{transform: rotate3d(0, 0, 1, 360deg);}
+}
+
+.armRotate,
+.newRadius{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  height: 1px;
+  border: 1px solid white;
+  transform-origin: 0 50% 0;
+  z-index: -1200;
 }
